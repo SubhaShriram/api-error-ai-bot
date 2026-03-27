@@ -55,4 +55,4 @@ Error Message: <value>
     st.markdown("### Assistant Response")
 
     # Display formatted response
-    st.markdown(answer)
+    st.markdown(answer, unsafe_allow_html=True)
