@@ -1,0 +1,168 @@
+﻿error_code,error_title,error_message,root_cause,solution
+1,Undefined method whatsapp_conversation,undefined method `whatsapp_conversation' for nil:NilClass,"Mobile number missing in the request  
+ {
+  ""template_name"": ""appointment_confirmation_v1"",
+  ""channel"": ""whatsapp"",
+  ""recipients"": [
+    {
+      ""mobile"": """",
+      ""language"": ""en"",
+      ""components"": [
+        {
+          ""type"": ""body"",
+          ""parameters"": [
+            {
+              ""type"": ""text"",
+              ""text"": [
+                ""RAMESH"",
+                ""Service Center - Indiranagar"",
+                ""06 March 2026"",
+                ""10:30 AM""
+              ]
+            }
+          ]
+        }
+      ],
+      ""externalMessageId"": ""msg_20260306_001""
+    }
+  ]
+}","1. Ensure the recipient mobile number is provided in the API request.
+
+2. Validate that the mobile field is not empty before calling whatsapp_conversation.
+
+3.Test the request with a valid mobile number before sending."
+2,Undefined method each for String or NilClass,"undefined method each' for 
+""ABC Auto Services - Bangalore Whitefield Road"":String <br> undefined method each' for nil:NilClass","Parameters expected as an array,
+ but a String or nil was sent in the template text field","1. Ensure that all template parameters are arrays, even if there is only 1 value.
+
+2. Instead of sending ""text"": ""ABC Auto Services - Bangalore Whitefield Road"", send ""text"": [""ABC Auto Services - Bangalore Whitefield Road""].
+
+3. Check that no parameter is nil before sending the request.
+
+4. Validate all components in the payload to match the approved template placeholders.
+
+5. Test the API call locally with proper array format before sending."
+3,MySQL Duplicate Entry Error,"Mysql2::Error: Duplicate entry '9999999999-john.doe@example.com
+' for key 'advocates_mobile_email_index'",Attempted to insert a record with the same mobile + email combination that already exists in client_company_contacts table,"1. Check if a record with the same mobile and email already exists in the client_company_contacts table.
+
+2. Avoid inserting duplicates by validating mobile + email before insert.
+
+3. If using Rails, consider find_or_create_by(mobile: ..., email: ...) instead of direct insert.
+
+4. If duplicates are allowed, decide whether to update the existing record instead of creating a new one.
+
+5. Test insertion locally before running production scripts.
+
+| mobile | email | Allowed?                              |
+| ------ | ----- | ------------------------------------- |
+| A      | B     | ?                                     |
+| A      | C     | ?                                     |
+| D      | B     | ?                                     |
+| A      | B     | ? NOT allowed (duplicate combination) |"
+4,Template Parameter Count Mismatch,body: number of localizable_params (4) does not match the expected number of params (5),The number of placeholders defined in the approved WhatsApp template does not match the number of parameters sent in the API request.,"1. Check the approved WhatsApp template to see how many placeholders ({{1}}, {{2}}, …) are defined.
+
+2. Ensure the API request sends exactly the same number of values in the ""text"" array for the body component.
+
+3. Update your API request with the correct number of parameters.
+
+4. Test the request locally before sending."
+5,Template Name Cannot Be Empty or Invalid,The API cannot find the template you are trying to send.,"The template either does not exist, is not approved, or the name does not match exactly with the approved WhatsApp template.","1. Verify that the template exists in your WhatsApp Business account.
+
+2. Ensure the template is approved.
+
+3. Check that the template name in the API request matches exactly (case-sensitive and including spaces).
+
+4. Test the request locally before sending."
+6,Parameter of Type Text is Missing Text Value,"Example of incorrect request: { ""type"": ""text"" }
+Example of correct request: { ""type"": ""text"", ""text"": ""Some value"" }
+If ""text"" field is: • Missing • null • Empty • Undefined, Meta throws this error.","The ""text"" field in the API request is either missing, null, empty, or undefined.","1. Ensure the ""text"" field is included in the request.
+
+2. Provide a valid string value for ""text"".
+
+3. Validate that the ""text"" value is not empty or null before sending the API request.
+
+4. Test the request locally to confirm it passes."
+7,Param Text Cannot Have New-line/Tab Characters or More Than 4 Consecutive Spaces,"The value you are passing inside a template text parameter contains invalid characters.
+Examples of invalid content:
+1?? A new line character (\n)
+2?? A tab character (\t)
+3?? More than 4 continuous spaces ( )
+WhatsApp does not allow these inside template variable values.","The template text parameter includes formatting characters or spacing that WhatsApp does not support, such as new lines, tabs, or excessive spaces.","1. Remove any new line (\n) or tab (\t) characters from the text parameter.
+
+2. Ensure that no segment of the text contains more than 4 consecutive spaces.
+
+3. Replace invalid characters with acceptable whitespace or formatting.
+
+4. Test the template locally to confirm it meets WhatsApp formatting rules."
+8,Parameter Invalid,"The parameter in the API request is invalid.
+Examples:
+• ? Invalid phone number (91null)
+• ? Text value is an empty array instead of a string","The API request contains parameters that do not meet the required format or type. For example, phone numbers may be missing or incorrectly formatted, or text fields may not be strings.","1. Verify that all phone numbers are valid and include the correct country code.
+
+2. Ensure text parameters are strings and not arrays or other types.
+
+3. Validate all parameters in your code before sending the request
+
+4. Test the request locally to ensure all parameters meet WhatsApp API requirements."
+9,Message Not Delivered – Ecosystem Engagement,This message was not delivered due to WhatsApp’s engagement policies.,"The user’s interaction levels are low, or messaging frequency is high, triggering WhatsApp’s engagement restrictions.","1. Reduce the frequency of messages sent to the user.
+
+2. Encourage user interactions (replies, clicks) to improve engagement.
+
+3. Monitor WhatsApp engagement metrics to avoid policy triggers.
+
+4. Test messaging to active users to confirm delivery."
+10,Message Undeliverable,The message may be undeliverable because the recipient cannot receive it on WhatsApp.,"The recipient cannot receive messages due to one or more of the following:
+
+• Invalid or incorrectly formatted phone number
+
+• User is not on WhatsApp
+
+• User blocked the business number
+
+• User deleted their WhatsApp account
+
+• Platform engagement restrictions applied
+
+• Temporary network or device issue on the user’s side","1. Verify the recipient’s phone number format and validity.
+
+2. Confirm the user is registered on WhatsApp.
+
+3. Check if the user has blocked the business number.
+
+4. Consider temporary network/device issues and retry later.
+
+5. Monitor platform engagement restrictions and adjust messaging frequency accordingly.
+
+6. Test delivery with a valid and active WhatsApp number to confirm resolution."
+11,Message quota exceeded,Business tier limit reached,Exceeded monthly messaging limit,1. Upgrade tier or wait until quota resets
+12,Too Many Requests,Exceeded API limits,Rate limits exceeded,"1. Respect WhatsApp rate limits. 
+
+2. Implement queue."
+13,Gateway Timeout,Request timed out,Request exceeded server timeout,"1. Retry request. 
+
+2. Reduce payload size if large."
+14,Internal Server Error,Backend issue or template sync problem,Temporary server failure or template sync issue,"1. Retry after few minutes. 
+
+2. Check template sync."
+15,Parameter type mismatch,Sending text when template expects URL/button/media,Mismatched component type,1. Match template components exactly.
+16,Invalid phone format,Number format not correct,Phone number format incorrect,"1. Use full number with country code: 91XXXXXXXXXX (no +, no spaces)"
+17,Unsupported message type,Trying to send unsupported type,Sending unsupported message type for template,"1. Use template type for templates, text type for text messages."
+18,Bad Request,JSON invalid or missing fields,Payload malformed or missing required keys,"1. Validate JSON.
+
+ 2. Check type, template, text, etc."
+19,Button or media missing,Template requires button or media but not provided,Missing required template components,1. Provide correct button/media object in JSON.
+20,Template parameter mismatch,Number of parameters sent does not match template,Wrong number of dynamic components provided,"1. Check template components and parameters. 
+
+2. Send exact count."
+21,Template not approved,Template is still pending or rejected,Template not approved yet,Template to be approved
+22,Template not found,Template does not exist in requested language,"Language mismatch, wrong WABA, or template not synced to number","1. Check template language. 
+
+2. Ensure template synced to number."
+23,Number not whitelisted,Recipient not approved for sandbox messaging,Number not added to sandbox or allowed recipients,Add number to allowed recipients list.
+24,Number disconnected,Phone number is disconnected from Hub,Number was removed or inactive,1. Reconnect number in Hub.
+25,Not Found,API key does not match the phone number or number not active,"Phone number not linked to API key, or number inactive","1. Check number status. 
+
+2. Use correct API key."
+26,Permission denied,API key doesn’t have permission to send messages,API key lacks required permissions or number not linked,"1. Ensure API key is linked to number. 
+
+2. Confirm number is Active."
