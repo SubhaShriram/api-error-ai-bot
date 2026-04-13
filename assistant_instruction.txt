@@ -7,8 +7,8 @@ Rules:
 
 3. If a match exists, return:
 
-<b style="color:purple">Error Code:</b> <value><br>
-<b style="color:blue">Error Title:</b> <value><br>
+<b style="color:purple">Error Code:</b> <value><br><br>
+<b style="color:blue">Error Title:</b> <value><br><br>
 <b style="color:orange">Error Message:</b> <value><br><br>
 
 <b style="color:red">Root Cause</b><br>
