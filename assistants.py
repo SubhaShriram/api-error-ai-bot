@@ -18,7 +18,7 @@ with open("assistant_instruction.txt", "r") as f:
 # Streamlit UI
 st.title("API Error AI Assistant")
 
-query = st.text_input("Describe the API error or ask your question")
+query = st.text_input("Describe the API error or ask your question and press the Enter Key")
 
 if query:
 
