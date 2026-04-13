@@ -56,3 +56,45 @@ Error Message: <value>
 
     # Display formatted response
     st.markdown(answer, unsafe_allow_html=True)
+
+
+# -------------------------------
+# Add New Error to Knowledge Base
+# -------------------------------
+
+st.markdown("### Add New Error to Knowledge Base")
+
+with st.form("add_error_form"):
+    error_code = st.text_input("Error Code")
+    error_title = st.text_input("Error Title")
+    error_message = st.text_input("Error Message")
+    root_cause = st.text_area("Root Cause")
+    solution = st.text_area("Solution")
+
+    submit = st.form_submit_button("Save to Knowledge Base")
+
+if submit:
+    if error_code and error_title:
+        # Create new row
+        new_row = {
+            "Error Code": error_code,
+            "Error Title": error_title,
+            "Error Message": error_message,
+            "Root Cause": root_cause,
+            "Solution": solution
+        }
+
+        # Append to existing dataframe
+        data = pd.concat([data, pd.DataFrame([new_row])], ignore_index=True)
+
+        # Save back to CSV
+        data.to_csv("Apierrors.csv", index=False)
+
+        st.success("New error added successfully!")
+
+        # Reload updated knowledge (optional but useful)
+        data = pd.read_csv("Apierrors.csv")
+        knowledge = data.to_string()
+
+    else:
+        st.error("Please fill at least Error Code and Error Title.")
