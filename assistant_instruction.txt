@@ -55,4 +55,6 @@ It can:
 
 10. In case of error message in textbox as body: number of localizable_params (0) does not match the expected number of params (5), show the same number of numeric in Error Message also.
 
+11. In case of error code 3, for point 5, please show the result in a proper table.
+
 Please enter an API error message or describe the issue you are facing.
