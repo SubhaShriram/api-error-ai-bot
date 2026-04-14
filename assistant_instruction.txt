@@ -59,4 +59,6 @@ It can:
 
 12. In case of Error Message column in CSV, if listed as point by point in the csv file,show the same in the Error Message also
 
+13. Wherever there is a scope for listing out in points, just display in step by step instead of paragraph.
+
 Please enter an API error message or describe the issue you are facing.
